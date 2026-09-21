@@ -1,0 +1,9 @@
+[
+    {
+        "id": 1,
+        "student": "миша",
+        "title": "3 место в рисовании",
+        "category": "Культура",
+        "is_confirmed": true
+    }
+]
