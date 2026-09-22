@@ -7,11 +7,21 @@ class Student:
         self.group = group
 
     def to_dict(self) -> dict:
-        return {"id": self.id, "name": self.name, "group": self.group}
+        """Преобразует объект в словарь."""
+        return {
+            "id": self.id,
+            "name": self.name,
+            "group": self.group,
+        }
 
     @classmethod
     def from_dict(cls, data: dict) -> "Student":
-        return cls(student_id=data["id"], name=data["name"], group=data["group"])
+        """Создает объект Student из словаря."""
+        return cls(
+            student_id=data["id"],
+            name=data["name"],
+            group=data["group"],
+        )
 
     def __str__(self) -> str:
         return f"[{self.id}] {self.name} (Группа: {self.group})"
