@@ -8,6 +8,11 @@ def add_achievement(
     category: str,
     is_confirmed: bool,
 ) -> Dict[str, Any]:
+    """Добавляет запись о достижении студента в общий список.
+
+    Raises:
+        ValueError: Если имя студента или название достижения пустые.
+    """
     if not student.strip() or not title.strip():
         raise ValueError(
             "Имя студента и название достижения не могут быть пустыми."
@@ -27,4 +32,7 @@ def add_achievement(
 def filter_by_student(
     records: List[Dict[str, Any]], student_name: str
 ) -> List[Dict[str, Any]]:
-    return [r for r in records if r["student"].lower() == student_name.lower()]
+    """Фильтрует список достижений по имени студента."""
+    return [
+        r for r in records if r["student"].lower() == student_name.lower()
+    ]

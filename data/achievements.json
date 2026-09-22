@@ -1,9 +1,8 @@
 [
     {
         "id": 1,
-        "student": "миша",
-        "title": "3 место в рисовании",
-        "category": "Культура",
-        "is_confirmed": true
+        "student_id": 1,
+        "title": "Забег",
+        "category": "Спорт"
     }
 ]

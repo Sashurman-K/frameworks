@@ -1,21 +1,29 @@
 import json
 import os
-from typing import List, Dict, Any
+from typing import Any, List, Type, TypeVar
 
-DATA_FILE = os.path.join("data", "achievements.json")
+T = TypeVar("T")
 
 
-def load_achievements() -> List[Dict[str, Any]]:
-    if not os.path.exists(DATA_FILE):
+def load_data(filepath: str, model_cls: Type[T]) -> List[T]:
+    """Загружает список объектов из JSON-файла."""
+    if not os.path.exists(filepath):
         return []
     try:
-        with open(DATA_FILE, "r", encoding="utf-8") as file:
-            return json.load(file)
-    except (json.JSONDecodeError, OSError):
+        with open(filepath, "r", encoding="utf-8") as f:
+            raw_data = json.load(f)
+            return [model_cls.from_dict(item) for item in raw_data]
+    except (json.JSONDecodeError, OSError, KeyError):
         return []
 
 
-def save_achievements(data: List[Dict[str, Any]]) -> None:
-    os.makedirs(os.path.dirname(DATA_FILE), exist_ok=True)
-    with open(DATA_FILE, "w", encoding="utf-8") as file:
-        json.dump(data, file, ensure_ascii=False, indent=4)
+def save_data(filepath: str, items: List[Any]) -> None:
+    """Сохраняет список объектов в JSON-файл."""
+    os.makedirs(os.path.dirname(filepath), exist_ok=True)
+    with open(filepath, "w", encoding="utf-8") as f:
+        json.dump(
+            [item.to_dict() for item in items],
+            f,
+            ensure_ascii=False,
+            indent=4,
+        )
